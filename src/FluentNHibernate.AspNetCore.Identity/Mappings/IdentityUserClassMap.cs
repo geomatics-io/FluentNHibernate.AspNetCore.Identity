@@ -12,6 +12,7 @@ namespace FluentNHibernate.AspNetCore.Identity.Mappings
             LazyLoad();
 
             Id(i => i.Id)
+                .GeneratedBy.UuidHex("D")
                 .Column("Id")
                 .Length(450)
                 .Not.Nullable();

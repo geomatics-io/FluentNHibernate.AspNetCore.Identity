@@ -24,6 +24,8 @@ namespace FluentNHibernate.AspNetCore.Identity.Mappings
             References(i => i.IdentityUser)
                 .Column("UserId")
                 .Not.Nullable();
+
+            Map(x => x.UserId).Formula("UserId");
         }
     }
 }
