@@ -12,6 +12,8 @@ using NHibernate.Tool.hbm2ddl;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace FluentNHibernate.AspNetCore.Identity.Tests
 {
@@ -23,7 +25,7 @@ namespace FluentNHibernate.AspNetCore.Identity.Tests
         [SetUp]
         public void SetUp()
         {
-            var _connectionString = "Server=127.0.0.1;Port=5432;Database=pinboard;User Id=pinboard;Password=pinboard;";
+            var _connectionString = "Server=127.0.0.1;Port=5432;Database=omnifeed;User Id=omnifeed;Password=omnifeed;";
 
             var connection = PostgreSQLConfiguration
                     .Standard
@@ -34,7 +36,7 @@ namespace FluentNHibernate.AspNetCore.Identity.Tests
                 .Database(connection)
                 .Mappings(mapper =>
                 {
-                    mapper.FluentMappings.AddFromAssemblyOf<IdentityUser>();
+                    mapper.FluentMappings.AddFromAssemblyOf<FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser>();
 
                 })
                 .CurrentSessionContext<ThreadStaticSessionContext>()
@@ -45,9 +47,9 @@ namespace FluentNHibernate.AspNetCore.Identity.Tests
 
         private void Config(Configuration cfg)
         {
-            cfg.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
-            cfg.SetProperty(Environment.ConnectionDriver, "NHibernate.Driver.NpgsqlDriver");
-            cfg.SetProperty(Environment.Dialect, "NHibernate.Dialect.PostgreSQLDialect");
+            cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
+            cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionDriver, "NHibernate.Driver.NpgsqlDriver");
+            cfg.SetProperty(NHibernate.Cfg.Environment.Dialect, "NHibernate.Dialect.PostgreSQLDialect");
 
             BuildSchema(cfg);
         }
@@ -59,12 +61,42 @@ namespace FluentNHibernate.AspNetCore.Identity.Tests
         }
 
         [Test]
-        public void IsPrime_InputIs1_ReturnFalse()
+        public async System.Threading.Tasks.Task IsPrime_InputIs1_ReturnFalseAsync()
         {
-            var session = _sessionFactory.OpenSession();
-            var results = session.Query<IdentityUser>().ToList();
+            
+            using(ISession session = _sessionFactory.OpenSession())
+            using(var tx = session.BeginTransaction())
+            {
+                try
+                {
 
-            Assert.AreEqual(0, results.Count);
+
+                    FluentNHibernate.AspNetCore.Identity.UserStore<FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser, FluentNHibernate.AspNetCore.Identity.Entities.IdentityRole> userStore = new UserStore<Entities.IdentityUser, Entities.IdentityRole>(session);
+                    UserManager<FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser> userManager = new UserManager<FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser>(userStore, null, null, null, null, null, null, null, null);
+
+                    userManager.PasswordHasher = new PasswordHasher<FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser>();
+
+                    string password = @"6yd%Ss*vCv&QA6";
+
+                    var user = new FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser
+                    {
+                        UserName = "username",
+                        Email = "user.name@email.com",
+                        EmailConfirmed = true,
+                        LockoutEnabled = false
+                    };
+
+                    user.PasswordHash = userManager.PasswordHasher.HashPassword(user, password);
+
+                    var result = await userManager.CreateAsync(user, password);
+
+                    tx.Commit();
+                }
+                catch(Exception ex)
+                {
+                    tx.Rollback();
+                }
+            }
         }
     }
 }
