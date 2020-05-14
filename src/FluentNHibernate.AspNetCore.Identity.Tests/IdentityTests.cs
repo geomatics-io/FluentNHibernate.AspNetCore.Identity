@@ -91,6 +91,8 @@ namespace FluentNHibernate.AspNetCore.Identity.Tests
                     var result = await userManager.CreateAsync(user, password);
 
                     tx.Commit();
+
+                    Assert.IsTrue(result.Succeeded);
                 }
                 catch(Exception ex)
                 {
