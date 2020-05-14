@@ -94,6 +94,10 @@ namespace FluentNHibernate.AspNetCore.Identity.Mappings
             HasMany(i => i.IdentityUserClaims)
                 .KeyColumns.Add("UserId")
                 .Cascade.All();
+
+            HasMany(i => i.IdentityUserTokens)
+                .KeyColumns.Add("UserId")
+                .Cascade.All();
         }
     }
 }
