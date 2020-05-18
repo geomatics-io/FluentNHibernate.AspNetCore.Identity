@@ -20,7 +20,9 @@ namespace FluentNHibernate.AspNetCore.Identity.Mappings
                 .Nullable();
 
             References(i => i.IdentityUser)
-                .Column("UserId");
+                .Column("UserId")
+                .Not.Insert()
+                .Not.Update();
         }
     }
 }
