@@ -15,7 +15,7 @@ namespace FluentNHibernate.AspNetCore.Identity {
         UserStoreBase<TUser, TRole, string, FluentNHibernate.AspNetCore.Identity.Entities.IdentityUserClaim, FluentNHibernate.AspNetCore.Identity.Entities.IdentityUserRole, FluentNHibernate.AspNetCore.Identity.Entities.IdentityUserLogin, FluentNHibernate.AspNetCore.Identity.Entities.IdentityUserToken, FluentNHibernate.AspNetCore.Identity.Entities.IdentityRoleClaim>,
         IProtectedUserStore<TUser> where TUser : FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser where TRole : FluentNHibernate.AspNetCore.Identity.Entities.IdentityRole {
 
-        private readonly ISession session;
+        protected readonly ISession session;
 
         public UserStore(
             ISession session,
