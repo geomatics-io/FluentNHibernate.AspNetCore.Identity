@@ -8,12 +8,11 @@ using FluentNHibernate.AspNetCore.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using NHibernate;
 using NHibernate.Linq;
-using IdentityUser = Microsoft.AspNetCore.Identity.IdentityUser;
 
 namespace FluentNHibernate.AspNetCore.Identity {
 
     public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserClaim, IdentityUserLogin, IdentityUserToken>,
-        IProtectedUserStore<TUser> where TUser : IdentityUser {
+        IProtectedUserStore<TUser> where TUser : FluentNHibernate.AspNetCore.Identity.Entities.IdentityUser {
 
         private readonly ISession session;
 
