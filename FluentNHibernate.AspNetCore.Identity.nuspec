@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>FluentNHibernate.AspNetCore.Identity</id>
+    <version>0.0.1-alpha</version>
+    <title>FluentNHibernate.AspNetCore.Identity</title>
+    <authors>Christian Junk</authors>
+    <owners>Christian Junk</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/geomatics-io/FluentNHibernate.AspNetCore.Identity</projectUrl>
+    <repository type="git" url="https://github.com/geomatics-io/FluentNHibernate.AspNetCore.Identity.git" branch="development" />
+    <iconUrl>https://raw.githubusercontent.com/geomatics-io/FluentNHibernate.AspNetCore.Identity/development/FluentNHibernate.AspNetCore.Identity.png</iconUrl>
+    <description>ASP.NET Core Identity Provider for FluentNHibernate</description>
+    <copyright></copyright>
+    <tags>fluentnhibernate nhibernate postgresql aspnetcore31 aspnetcore identity-provider</tags>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="FluentNHibernate" version="2.1.2" />
+        <dependency id="Microsoft.Extensions.Identity.Core" version="3.1.4" />
+        <dependency id="Microsoft.Extensions.Identity.Stores" version="3.1.4" />
+        <dependency id="Npgsql" version="4.1.3.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="FluentNHibernate.AspNetCore.Identity.png" target="images\icon.png" />
+    <file src="bin\Debug\netcoreapp3.1\FluentNHibernate.AspNetCore.Identity.dll" target="lib\netcoreapp3.1\FluentNHibernate.AspNetCore.Identity.dll" />
+    <file src="bin\Debug\netcoreapp3.1\FluentNHibernate.AspNetCore.Identity.pdb" target="lib\netcoreapp3.1\FluentNHibernate.AspNetCore.Identity.pdb" />
+  </files>
+</package>
