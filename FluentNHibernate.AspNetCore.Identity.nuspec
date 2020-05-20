@@ -8,7 +8,7 @@
     <owners>Christian Junk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/geomatics-io/FluentNHibernate.AspNetCore.Identity</projectUrl>
-    <repository type="git" url="https://github.com/geomatics-io/FluentNHibernate.AspNetCore.Identity.git" branch="development" />
+    <repository type="git" url="https://github.com/geomatics-io/FluentNHibernate.AspNetCore.Identity" branch="development" />
     <iconUrl>https://raw.githubusercontent.com/geomatics-io/FluentNHibernate.AspNetCore.Identity/development/FluentNHibernate.AspNetCore.Identity.png</iconUrl>
     <description>ASP.NET Core Identity Provider for FluentNHibernate</description>
     <copyright></copyright>
